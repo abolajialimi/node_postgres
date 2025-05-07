@@ -11,7 +11,25 @@ document.getElementById('customer_selector').addEventListener('change', (e) => {
     }
   });
   
-
+  async function loadCustomers() {
+    const res = await fetch('/api/customers'); // Define this route if not already
+    const customers = await res.json();
+    const selector = document.getElementById('customer_selector');
+  
+    customers.forEach(c => {
+      const option = document.createElement('option');
+      option.value = c.account_id;
+      option.textContent = `${c.customer_name} (${c.account_id.slice(0, 6)}…)`;
+      selector.appendChild(option);
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    loadCustomers();
+  });
+ 
+  
+  
 async function loadBillingMonths(accountId) {
     try {
       const res = await fetch(`/api/billing-months/${accountId}`);

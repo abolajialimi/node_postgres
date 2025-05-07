@@ -120,7 +120,7 @@ $('saveBtn').addEventListener('click', async () => {
   const accountId = $('account_id').value;
   if (!billingMonth || !accountId) return alert('Missing ID or month');
 
-  const { start, end } = getPeriodRange(billingMonth);
+  const { start, end } =  getPeriodRange(billingMonth);
 
   try {
     const { entry_id } = await fetchJSON('/api/entry-id', {
