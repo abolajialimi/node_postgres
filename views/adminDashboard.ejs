@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+  <a href="/logout">Logout</a>
+
+  <h2>Create New Billing Entry</h2>
+  <form action="/admin/create" method="POST">
+    <input type="number" name="account_id" placeholder="Account ID" required>
+    <input type="text" name="billing_month" placeholder="Billing Month (YYYY-MM)" required>
+    <input type="number" name="electricity_consumption" step="0.01" placeholder="Electricity (kWh)" required>
+    <input type="number" name="gas_consumption" step="0.01" placeholder="Gas (Therms)" required>
+    <input type="number" name="total_amount" step="0.01" placeholder="Total Amount ($)" required>
+    <input type="text" name="invoice_status" placeholder="Status (Paid/Unpaid)" required>
+    <button type="submit">Add Billing</button>
+  </form>
+
+  <h2>Update Billing Entry</h2>
+  <form action="/admin/update" method="POST">
+    <input type="number" name="id" placeholder="Billing ID" required>
+    <input type="text" name="billing_month" placeholder="Billing Month (YYYY-MM)" required>
+    <input type="number" name="electricity_consumption" step="0.01" placeholder="Electricity (kWh)" required>
+    <input type="number" name="gas_consumption" step="0.01" placeholder="Gas (Therms)" required>
+    <input type="number" name="total_amount" step="0.01" placeholder="Total Amount ($)" required>
+    <input type="text" name="invoice_status" placeholder="Status (Paid/Unpaid)" required>
+    <button type="submit">Update Billing</button>
+  </form>
+
+  <h2>Billing Records</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Account ID</th>
+        <th>Month</th>
+        <th>Electricity</th>
+        <th>Gas</th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach(row => { %>
+        <tr>
+          <td><%= row.id %></td>
+          <td><%= row.account_id %></td>
+          <td><%= row.billing_month %></td>
+          <td><%= row.electricity_consumption %></td>
+          <td><%= row.gas_consumption %></td>
+          <td><%= row.total_amount %></td>
+          <td><%= row.invoice_status %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

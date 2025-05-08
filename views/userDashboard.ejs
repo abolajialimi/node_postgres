@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Welcome, <%= username %></h1>
+  <a href="/logout">Logout</a>
+
+  <h2>Your Bills</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Billing Month</th>
+        <th>Electricity (kWh)</th>
+        <th>Gas (Therms)</th>
+        <th>Total ($)</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% bills.forEach(bill => { %>
+        <tr>
+          <td><%= bill.billing_month %></td>
+          <td><%= bill.electricity_consumption %></td>
+          <td><%= bill.gas_consumption %></td>
+          <td><%= bill.total_amount %></td>
+          <td><%= bill.invoice_status %></td>
+          <td>
+            <% if (bill.invoice_status === 'Unpaid') { %>
+              <form action="/user/pay" method="POST">
+                <input type="hidden" name="bill_id" value="<%= bill.id %>">
+                <button type="submit">Pay Now</button>
+              </form>
+            <% } else { %>
+              Paid
+            <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>
