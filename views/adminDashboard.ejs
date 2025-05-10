@@ -3,10 +3,49 @@
 <head>
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <h1>Admin Dashboard</h1>
+  <h2>Welcome, <%= username %> (Admin)</h2>
   <a href="/logout">Logout</a>
+
+  <div class="container">
+ 
+    <h3>Consumption Summary</h3>
+    <% if (summary) { %>
+      <ul>
+        <li>Total Electricity: <%= summary.total_electricity || 0 %> kWh</li>
+        <li>Total Gas: <%= summary.total_gas || 0 %> m³</li>
+        <li>Total Invoice: $<%= summary.total_invoice || 0 %></li>
+      </ul>
+    <% } else { %>
+      <p>No usage data found.</p>
+    <% } %>
+
+ 
+    <div class="chart-container">
+      <div class="chart-container" style="max-width: 500px; margin: 0 auto; padding: 20px;">
+        <h3>Invoice Status Summary (Pie)</h3>
+        <div class="chart">
+          <canvas id="summaryPieChart" width="400" height="400"></canvas>
+        </div>
+      </div>
+      
+      <div class="chart-container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+        <h2>Electricity Usage Trend</h2>
+        <div class="chart">
+          <canvas id="electricityTrendChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+      
+      <div class="chart-container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+        <h2>Gas Usage Trend</h2>
+        <div class="chart">
+          <canvas id="gasTrendChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+
 
   <h2>Create New Billing Entry</h2>
   <form action="/admin/create" method="POST">
@@ -44,7 +83,7 @@
       </tr>
     </thead>
     <tbody>
-      <% data.forEach(row => { %>
+      <% bills.forEach(row => { %>
         <tr>
           <td><%= row.id %></td>
           <td><%= row.account_id %></td>
@@ -57,5 +96,14 @@
       <% }) %>
     </tbody>
   </table>
+</div>
+<script>
+  const labels = <%- labels || '[]' %>;
+  const electricityData = <%- electricityData || '[]' %>;
+  const gasData = <%- gasData || '[]' %>;
+  const statusSummary = <%- statusSummary || '{}' %>;
+</script>
+<script src="/js/charts.js"></script>
+
 </body>
 </html>

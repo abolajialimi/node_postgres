@@ -7,6 +7,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
 const authMiddleware = require('./middleware/auth');
 const db = require('./config/db');
+
 // Login handler without bcrypt
 const bcrypt = require('bcrypt');
 const app = express();
@@ -31,6 +32,8 @@ app.set('view engine', 'ejs');
 // Routes
 app.use('/admin', authMiddleware.requireAdmin, adminRoutes);
 app.use('/user', authMiddleware.requireUser, userRoutes);
+
+
 
 // Login page
 app.get('/', (req, res) => {

@@ -31,7 +31,7 @@ CREATE TABLE usage_and_billing (
     electricity_consumption DECIMAL,
     gas_consumption DECIMAL,
     total_amount DECIMAL,
-    invoice_status VARCHAR(10) CHECK (invoice_status IN ('Paid', 'Pending'))
+    invoice_status VARCHAR(10) CHECK (invoice_status IN ('Paid', 'Pending','Unpaid'))
 );
 
 -- Insert sample users
@@ -51,6 +51,6 @@ INSERT INTO customer_account (account_id, customer_name, service_address, servic
 -- Insert usage and billing data
 INSERT INTO usage_and_billing (account_id, billing_month, electricity_consumption, gas_consumption, total_amount, invoice_status) VALUES
 (1002, '2025-01', 320, 50, 120.00, 'Paid'),
-(1002, '2025-02', 280, 40, 110.00, 'Pending'),
+(1002, '2025-02', 280, 40, 110.00, 'Unpaid'),
 (1003, '2025-01', 150, 0, 75.00, 'Pending'),
 (1003, '2025-02', 170, 0, 85.00, 'Paid');

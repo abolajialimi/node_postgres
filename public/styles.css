@@ -63,3 +63,30 @@ body {
     background-color: #f9f9f9;
   }
   
+
+
+
+  .chart-container {
+    max-width: 80%; /* Limit the width of the charts */
+    margin: 20px auto; /* Center the chart horizontally with some space at the top and bottom */
+    padding: 20px;
+    text-align: center; /* Center the text (like titles) */
+  }
+  
+  .chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  

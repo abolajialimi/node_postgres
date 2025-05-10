@@ -3,12 +3,62 @@
 <head>
   <title>User Dashboard</title>
   <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 </head>
 <body>
-  <h1>Welcome, <%= username %></h1>
+  <h1>Welcome, <%= customerProfile.name %> </h1>
   <a href="/logout">Logout</a>
 
+  <div class="container">
+    <div class="profile-card">
+      <h3>Customer Profile</h3>
+      <ul>
+        <li><strong>Name:</strong> <%= customerProfile.name %></li>
+        <li><strong>Address:</strong> <%= customerProfile.address %></li>
+        <li><strong>Service Type:</strong> <%= customerProfile.type %></li>
+        <li><strong>Meter ID:</strong> <%= customerProfile.meter %></li>
+      </ul>
+    </div>
+    <div class="container">
+    <h3>Your Consumption Summary</h3>
+    <% if (summary) { %>
+      <ul>
+        <li>Your Total Electricity: <%= summary.total_electricity || 0 %> kWh</li>
+        <li>Your Total Gas: <%= summary.total_gas || 0 %> m³</li>
+        <li>Your Total Invoice: $<%= summary.total_invoice || 0 %></li>
+      </ul>
+    <% } else { %>
+      <p>No usage data found.</p>
+    <% } %>
+  </div>
+
+  <div class="container">
+    <h2>Current Month Summary (Pie)</h2>
+    <div class="chart-container" style="max-width: 500px; margin: 0 auto; padding: 20px;">
+      <h2>Current Month Summary (Pie)</h2>
+      <div class="chart">
+        <canvas id="summaryPieChart" width="400" height="400"></canvas>
+      </div>
+    </div>
+    
+    <div class="chart-container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+      <h2>Electricity Usage Trend</h2>
+      <div class="chart">
+        <canvas id="electricityTrendChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+    
+    <div class="chart-container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+      <h2>Gas Usage Trend</h2>
+      <div class="chart">
+        <canvas id="gasTrendChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </div>
   <h2>Your Bills</h2>
+  <% console.log(bills); %>
   <table border="1">
     <thead>
       <tr>
@@ -21,26 +71,45 @@
       </tr>
     </thead>
     <tbody>
+      <% console.log(bills); %>
       <% bills.forEach(bill => { %>
         <tr>
+       
           <td><%= bill.billing_month %></td>
           <td><%= bill.electricity_consumption %></td>
           <td><%= bill.gas_consumption %></td>
           <td><%= bill.total_amount %></td>
           <td><%= bill.invoice_status %></td>
           <td>
-            <% if (bill.invoice_status === 'Unpaid') { %>
-              <form action="/user/pay" method="POST">
-                <input type="hidden" name="bill_id" value="<%= bill.id %>">
+            <% if (bill.invoice_status !== 'Paid') { %>
+                <form action="/user/pay" method="POST">
+                <input type="hidden" name="bill_id" value="<%= bill.id %>" />
+                <p>Debug bill_id: <%= bill.id %></p>
+                <p>Debug bill_id2: <%= bill.bill_id %></p>
                 <button type="submit">Pay Now</button>
               </form>
             <% } else { %>
-              Paid
+                <span>Paid</span>
             <% } %>
           </td>
         </tr>
-      <% }) %>
+      <% }); %> <!-- Properly closed the forEach loop -->
     </tbody>
   </table>
+
+
+  
+</div> 
+  
+
+<!-- Injected data -->
+<script>
+  const labels = <%- labels %>;
+  const electricityData = <%- electricityData %>;
+  const gasData = <%- gasData %>;
+  const statusSummary = <%- statusSummary %>;
+</script>
+
+<script src="/js/charts.js"></script>
 </body>
 </html>
