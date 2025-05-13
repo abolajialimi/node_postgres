@@ -122,7 +122,7 @@
       🌡️ Summer energy demand 🪫 expected to rise 15%. Be energy smart! 🤓 🔋
     </marquee>
         
-        
+         <br> 
      <div class="form">
       <h1>LOGIN</h1>
       <p>Username:</p>
@@ -132,17 +132,70 @@
       <div class="spacer"></div>
       <button onclick="validate()" class="login-btn">LOGIN</button>
     </div>   
+
+         <!-- 📢 Utility Company Info -->
+        <div class="footer-info" style="text-align: center;">
+    <p>&copy; 2025 Utilitywise | Your trusted energy & gas provider. Committed to sustainability, transparency, and innovation.</p>
+  </div>
         
-        
-        <br> <br> <br> <br> <br> <br> <br> <br>
+        <br> <br> <br> <br>
       
-
-
-  
-
-
-  
   
 </body>
 </html>
+
+
+
+<!-- 
+
+this is he javascript code you need this code 
+
+function toggleDropdown() {
+    document.getElementById("contactDropdown").classList.toggle("show");
+    }
+    window.onclick = (event) => {
+    if (!event.target.closest('.dropbtn')) {
+    document.querySelectorAll('.dropdown.show').forEach(dropdown => {
+    dropdown.classList.remove('show');
+    });
+    }
+    }; 
+
+           ////////////////////////////////
+
+        
+         // JavaScript to open and close the modals
+
+       
+         const modalTriggers = document.querySelectorAll('.modal-trigger');
+         const modals = document.querySelectorAll('.modal');
+         const overlay = document.querySelector('.modal-overlay');
+     
+         modalTriggers.forEach(trigger => {
+             trigger.addEventListener('click', () => {
+                 const modalId = trigger.getAttribute('data-modal');
+                 const modal = document.getElementById(modalId);
+                 openModal(modal);
+             });
+         });
+     
+         document.querySelectorAll('.close-btn').forEach(btn => {
+             btn.addEventListener('click', () => {
+                 closeModal();
+             });
+         });
+     
+         overlay.addEventListener('click', closeModal);
+     
+         function openModal(modal) {
+             modal.classList.add('active');
+             overlay.classList.add('active');
+         }
+     
+         function closeModal() {
+             modals.forEach(modal => modal.classList.remove('active'));
+             overlay.classList.remove('active');
+         }
+
+-->
 
