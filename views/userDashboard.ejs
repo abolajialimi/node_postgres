@@ -8,10 +8,14 @@
 
 </head>
 <body>
-  <h1>Welcome, <%= customerProfile.name %> </h1>
-  <a href="/logout">Logout</a>
+  <div class="dashboard-header">
+    <h2>Welcome, <%= customerProfile.name %></h2>
+    <a href="/logout" class="logout-button">Logout</a>
+  </div>
+  
 
-  <div class="container">
+
+  <div class="info-cards">
     <div class="profile-card">
       <h3>Customer Profile</h3>
       <ul>
@@ -21,42 +25,44 @@
         <li><strong>Meter ID:</strong> <%= customerProfile.meter %></li>
       </ul>
     </div>
-    <div class="container">
-    <h3>Your Consumption Summary</h3>
-    <% if (summary) { %>
-      <ul>
-        <li>Your Total Electricity: <%= summary.total_electricity || 0 %> kWh</li>
-        <li>Your Total Gas: <%= summary.total_gas || 0 %> m³</li>
-        <li>Your Total Invoice: $<%= summary.total_invoice || 0 %></li>
-      </ul>
-    <% } else { %>
-      <p>No usage data found.</p>
-    <% } %>
+  
+    <div class="summary-card">
+      <h3>Your Consumption Summary</h3>
+      <% if (summary) { %>
+        <ul>
+          <li>Your Total Electricity: <%= summary.total_electricity || 0 %> kWh</li>
+          <li>Your Total Gas: <%= summary.total_gas || 0 %> m³</li>
+          <li>Your Total Invoice: $<%= summary.total_invoice || 0 %></li>
+        </ul>
+      <% } else { %>
+        <p>No usage data found.</p>
+      <% } %>
+    </div>
   </div>
-
+  
+  
   <div class="container">
-    <h2>Current Month Summary (Pie)</h2>
-    <div class="chart-container" style="max-width: 500px; margin: 0 auto; padding: 20px;">
-      <h2>Current Month Summary (Pie)</h2>
-      <div class="chart">
-        <canvas id="summaryPieChart" width="400" height="400"></canvas>
+
+    <div class="charts">
+      <h2 style="text-align: center;">Current Month Summary</h2>
+      <div class="chart-row">
+        <div class="chart-container">
+          <h3>Summary (Pie)</h3>
+          <canvas id="summaryPieChart" width="250" height="250"></canvas>
+        </div>
+        <div class="chart-container">
+          <h3>Electricity Usage Trend</h3>
+          <canvas id="electricityTrendChart" width="250" height="250"></canvas>
+        </div>
+        <div class="chart-container">
+          <h3>Gas Usage Trend</h3>
+          <canvas id="gasTrendChart" width="250" height="250"></canvas>
+        </div>
       </div>
     </div>
-    
-    <div class="chart-container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
-      <h2>Electricity Usage Trend</h2>
-      <div class="chart">
-        <canvas id="electricityTrendChart" width="400" height="200"></canvas>
-      </div>
-    </div>
-    
-    <div class="chart-container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
-      <h2>Gas Usage Trend</h2>
-      <div class="chart">
-        <canvas id="gasTrendChart" width="400" height="200"></canvas>
-      </div>
-    </div>
+  
   </div>
+  
   <h2>Your Bills</h2>
   <% console.log(bills); %>
   <table border="1">
@@ -71,7 +77,6 @@
       </tr>
     </thead>
     <tbody>
-      <% console.log(bills); %>
       <% bills.forEach(bill => { %>
         <tr>
        
@@ -84,8 +89,6 @@
             <% if (bill.invoice_status !== 'Paid') { %>
                 <form action="/user/pay" method="POST">
                 <input type="hidden" name="bill_id" value="<%= bill.id %>" />
-                <p>Debug bill_id: <%= bill.id %></p>
-                <p>Debug bill_id2: <%= bill.bill_id %></p>
                 <button type="submit">Pay Now</button>
               </form>
             <% } else { %>
@@ -96,8 +99,6 @@
       <% }); %> <!-- Properly closed the forEach loop -->
     </tbody>
   </table>
-
-
   
 </div> 
   

@@ -15,7 +15,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(
   session({
     secret: 'secretKey',
@@ -39,23 +39,6 @@ app.use('/user', authMiddleware.requireUser, userRoutes);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/login.html'));
 });
-
-// // Login handler
-// app.post('/login', async (req, res) => {
-//   const { username } = req.body;
-//   try {
-//     const result = await db.query('SELECT * FROM users WHERE username = $1', [username]);
-//     const user = result.rows[0];
-//     if (!user) return res.redirect('/');
-//     req.session.user = { username: user.username, role: user.role, account_id: user.account_id };
-//     if (user.role === 'admin') return res.redirect('/admin/dashboard');
-//     if (user.role === 'user') return res.redirect('/user/dashboard');
-//     res.redirect('/');
-//   } catch (err) {
-//     console.error(err);
-//     res.redirect('/');
-//   }
-// });
 
 
 // Login handler

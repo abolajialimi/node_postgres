@@ -2,8 +2,6 @@
 const db = require('../config/db');
 
 // models/billingModel.js
-
-
 exports.getAllBills = async () => {
   return db.query('SELECT * FROM usage_and_billing');
 };

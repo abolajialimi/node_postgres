@@ -6,11 +6,14 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <h2>Welcome, <%= username %> (Admin)</h2>
-  <a href="/logout">Logout</a>
+  <div class="dashboard-header">
+    <h2>Welcome, <%= username %> (Admin)</h2>
+    <a href="/logout" class="logout-button">Logout</a>
+  </div>
+  
 
   <div class="container">
- 
+    <div class="summary-card_admin">
     <h3>Consumption Summary</h3>
     <% if (summary) { %>
       <ul>
@@ -21,31 +24,31 @@
     <% } else { %>
       <p>No usage data found.</p>
     <% } %>
+    </div>
+  </div>
+    <div class="container">
 
- 
-    <div class="chart-container">
-      <div class="chart-container" style="max-width: 500px; margin: 0 auto; padding: 20px;">
-        <h3>Invoice Status Summary (Pie)</h3>
-        <div class="chart">
-          <canvas id="summaryPieChart" width="400" height="400"></canvas>
+      <div class="charts">
+        <h2 style="text-align: center;">Current Month Summary</h2>
+        <div class="chart-row">
+          <div class="chart-container">
+            <h3>Summary (Pie)</h3>
+            <canvas id="summaryPieChart" width="250" height="250"></canvas>
+          </div>
+          <div class="chart-container">
+            <h3>Electricity Usage Trend</h3>
+            <canvas id="electricityTrendChart" width="250" height="250"></canvas>
+          </div>
+          <div class="chart-container">
+            <h3>Gas Usage Trend</h3>
+            <canvas id="gasTrendChart" width="250" height="250"></canvas>
+          </div>
         </div>
       </div>
-      
-      <div class="chart-container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
-        <h2>Electricity Usage Trend</h2>
-        <div class="chart">
-          <canvas id="electricityTrendChart" width="400" height="200"></canvas>
-        </div>
-      </div>
-      
-      <div class="chart-container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
-        <h2>Gas Usage Trend</h2>
-        <div class="chart">
-          <canvas id="gasTrendChart" width="400" height="200"></canvas>
-        </div>
+    
     </div>
 
-
+ 
 
   <h2>Create New Billing Entry</h2>
   <form action="/admin/create" method="POST">
